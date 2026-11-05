@@ -1,0 +1,559 @@
+/* ==========================================================================
+   NOVA - style.css   ***** FILE GUIDE (MASTER COMMENT) *****
+   --------------------------------------------------------------------------
+   IN ONE SENTENCE: This is the foundation stylesheet loaded on EVERY page.
+   It defines the colour/font design tokens, resets browser defaults, sets the
+   basic typography, and styles the shared page furniture: buttons, forms, the
+   header/navigation, the hero banner and the footer.
+
+   HOW THE CSS FILES FIT TOGETHER (load order matters)
+   1) style.css       - this base layer (tokens + global chrome)
+   2) components.css  - reusable pieces like product cards, toasts, timelines
+   3) admin.css       - only the admin console's extra styles
+   4) responsive.css  - loaded LAST so its media queries can override the rest
+   Because this file comes first, the custom properties it declares in
+   :root are available to every other stylesheet.
+
+   WHAT IS INSIDE, SECTION BY SECTION
+   1. DESIGN TOKENS   - CSS variables for the exact NOVA palette (blacks +
+                        purples), radii, shadows, spacing and fonts, so a
+                        single colour change ripples through the whole site
+   2. RESET           - strip default margins/box-sizing for consistency
+   3. TYPOGRAPHY      - headings, body text, the Inter font (Google Fonts) with
+                        sensible system fallbacks
+   4. LAYOUT          - the centred .container and page-section spacing
+   5. BUTTONS         - primary (purple), ghost and small button variants
+   6. FORM CONTROLS   - inputs, selects, textareas and their focus states
+   7. HEADER/NAV      - the sticky top bar, logo, links and the hamburger
+   8. HERO            - the big homepage banner
+   9. FOOTER          - the multi-column dark footer
+   10. BREADCRUMB     - the small "Home / Shop / ..." trail
+   11. GENERIC CARD   - a base dark panel reused as a building block
+
+   WHY TOKENS ARE USED: instead of repeating #8038E8 hundreds of times the
+   palette lives once as --accent etc., keeping the whole app on-brand and
+   easy to re-theme.
+   ========================================================================== */
+
+/* ==========================================================================
+   NOVA - style.css  (BASE STYLES)
+   --------------------------------------------------------------------------
+   WHAT THIS FILE DOES:
+   - Defines the colour palette as CSS variables (custom properties) so the
+     whole app shares ONE black + purple identity.
+   - Basic page reset, typography, buttons, forms, header, footer, hero.
+   - Every other CSS file (components.css, admin.css, responsive.css) reuses
+     these variables. Change a variable here and the whole app updates.
+   ========================================================================== */
+
+/* ---------- 1. DESIGN TOKENS (colours, sizes) ---------- */
+:root {
+    /* Backgrounds: almost-black, sampled from the reference screenshots */
+    --bg: #07080b;
+    /* storefront background */
+    --bg-deep: #060709;
+    /* deeper black used behind panels */
+    --surface: #111111;
+    /* admin dashboard surface */
+    --card: #151418;
+    /* dark card surface */
+    --panel: #1c1727;
+    /* secondary purple-tinted panel */
+    --panel-2: #251f32;
+    /* lighter purple-tinted panel */
+    --border: #302b39;
+    /* thin dark purple-grey border */
+
+    /* Purple accents used for buttons, icons, active links, glows */
+    --purple-deep: #503080;
+    --purple: #8038e8;
+    --violet: #a060f0;
+
+    /* Text */
+    --text: #f5f3fa;
+    /* main text (near white) */
+    --text-2: #b6b3c2;
+    /* muted secondary text */
+
+    /* Status colours (kept subtle so they do not clash with purple) */
+    --green: #34d399;
+    --red: #f87171;
+    --amber: #fbbf24;
+
+    /* Layout helpers */
+    --radius: 14px;
+    --radius-sm: 9px;
+    --shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+    --glow: 0 0 22px rgba(128, 56, 232, 0.35);
+    --font: "Inter", "Segoe UI", Arial, sans-serif;
+}
+
+/* ---------- 2. RESET ---------- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font);
+    font-size: 15px;
+    line-height: 1.55;
+    min-height: 100vh;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+ul {
+    list-style: none;
+}
+
+/* A soft purple ambient light fixed behind everything (like the screenshots) */
+body::before {
+    content: "";
+    position: fixed;
+    top: -220px;
+    left: 50%;
+    width: 700px;
+    height: 420px;
+    transform: translateX(-50%);
+    background: radial-gradient(closest-side, rgba(128, 56, 232, 0.22), transparent);
+    pointer-events: none;
+    z-index: 0;
+}
+
+main {
+    position: relative;
+    z-index: 1;
+}
+
+/* ---------- 3. TYPOGRAPHY ---------- */
+h1 {
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+h2 {
+    font-size: 1.45rem;
+    font-weight: 600;
+}
+
+h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+p {
+    color: var(--text-2);
+}
+
+.section-title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 18px;
+}
+
+.section-title .accent-bar {
+    width: 46px;
+    height: 4px;
+    border-radius: 4px;
+    background: linear-gradient(90deg, var(--purple), var(--violet));
+    margin-top: 6px;
+}
+
+/* ---------- 4. LAYOUT CONTAINERS ---------- */
+.container {
+    width: min(1200px, 92%);
+    margin: 0 auto;
+}
+
+.page-section {
+    padding: 42px 0;
+}
+
+/* ---------- 5. BUTTONS ---------- */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 11px 22px;
+    border-radius: var(--radius-sm);
+    border: 1px solid transparent;
+    font-family: var(--font);
+    font-size: 0.92rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.btn:active {
+    transform: scale(0.97);
+}
+
+/* Primary action: purple gradient (Add to Cart, Pay Now, Login ...) */
+.btn-primary {
+    background: linear-gradient(90deg, var(--purple), var(--violet));
+    color: #ffffff;
+}
+
+.btn-primary:hover {
+    box-shadow: var(--glow);
+    transform: translateY(-1px);
+}
+
+/* Secondary action: outlined ghost button */
+.btn-outline {
+    background: transparent;
+    color: var(--text);
+    border: 1px solid var(--border);
+}
+
+.btn-outline:hover {
+    border-color: var(--violet);
+    color: var(--violet);
+}
+
+/* Small variant used inside cards and tables */
+.btn-sm {
+    padding: 7px 14px;
+    font-size: 0.82rem;
+}
+
+.btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* ---------- 6. FORM CONTROLS ---------- */
+.form-group {
+    margin-bottom: 16px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--text-2);
+    margin-bottom: 6px;
+}
+
+.form-control {
+    width: 100%;
+    padding: 11px 14px;
+    background: var(--bg-deep);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    color: var(--text);
+    font-family: var(--font);
+    font-size: 0.92rem;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: var(--purple);
+    box-shadow: 0 0 0 3px rgba(128, 56, 232, 0.18);
+}
+
+/* Inline validation error text (shown under an input by JavaScript) */
+.field-error {
+    color: var(--red);
+    font-size: 0.78rem;
+    margin-top: 5px;
+    min-height: 16px;
+}
+
+.form-control.input-error {
+    border-color: var(--red);
+}
+
+select.form-control {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%23a060f0' viewBox='0 0 16 16'%3E%3Cpath d='M8 11L3 6h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    padding-right: 34px;
+}
+
+/* ---------- 7. HEADER / NAVIGATION ---------- */
+.site-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(7, 8, 11, 0.85);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+}
+
+.header-inner {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+    height: 68px;
+}
+
+/* Logo: purple X-shaped spark + wordmark */
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    font-size: 1.3rem;
+    font-weight: 800;
+    letter-spacing: 1px;
+}
+
+.logo .logo-mark {
+    width: 34px;
+    height: 34px;
+    border-radius: 9px;
+    background: linear-gradient(135deg, var(--purple), var(--purple-deep));
+    display: grid;
+    place-items: center;
+    font-size: 1.05rem;
+    color: #fff;
+    box-shadow: var(--glow);
+}
+
+.main-nav {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.main-nav a {
+    padding: 8px 13px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--text-2);
+    transition: color 0.2s ease, background 0.2s ease;
+}
+
+.main-nav a:hover {
+    color: var(--text);
+    background: rgba(160, 96, 240, 0.08);
+}
+
+/* Violet colour marks the page you are currently on */
+.main-nav a.active {
+    color: var(--violet);
+}
+
+/* Search box in the header */
+.header-search {
+    flex: 1;
+    max-width: 340px;
+    margin-left: auto;
+    position: relative;
+}
+
+.header-search input {
+    width: 100%;
+    padding: 9px 40px 9px 14px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    color: var(--text);
+    font-size: 0.88rem;
+}
+
+.header-search input:focus {
+    outline: none;
+    border-color: var(--purple);
+}
+
+.header-search .search-icon {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--violet);
+    cursor: pointer;
+}
+
+/* Icon buttons on the right of the header (profile, wishlist, cart) */
+.header-icons {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.icon-btn {
+    position: relative;
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    background: var(--card);
+    color: var(--text);
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.icon-btn:hover {
+    border-color: var(--violet);
+    box-shadow: var(--glow);
+}
+
+/* Small purple badge showing cart / wishlist item counts */
+.count-badge {
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    min-width: 18px;
+    height: 18px;
+    padding: 0 4px;
+    border-radius: 9px;
+    background: linear-gradient(90deg, var(--purple), var(--violet));
+    color: #fff;
+    font-size: 0.7rem;
+    font-weight: 700;
+    display: grid;
+    place-items: center;
+}
+
+/* Hamburger button - only visible on small screens (see responsive.css) */
+.menu-toggle {
+    display: none;
+}
+
+/* ---------- 8. HERO ---------- */
+.hero {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    align-items: center;
+    gap: 40px;
+    padding: 70px 0 60px;
+}
+
+.hero-badge {
+    display: inline-block;
+    padding: 6px 14px;
+    border: 1px solid var(--purple-deep);
+    border-radius: 999px;
+    color: var(--violet);
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    background: rgba(128, 56, 232, 0.1);
+    margin-bottom: 18px;
+}
+
+.hero h1 {
+    font-size: 3rem;
+    line-height: 1.15;
+    margin-bottom: 16px;
+}
+
+/* Gradient text effect on the highlighted word */
+.hero h1 .highlight {
+    background: linear-gradient(90deg, var(--violet), var(--purple));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.hero p {
+    font-size: 1.02rem;
+    max-width: 480px;
+    margin-bottom: 26px;
+}
+
+.hero-actions {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+}
+
+.hero-image {
+    background: radial-gradient(circle at 60% 40%, var(--panel-2), var(--card));
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    padding: 24px;
+    box-shadow: var(--shadow);
+}
+
+/* ---------- 9. FOOTER ---------- */
+.site-footer {
+    border-top: 1px solid var(--border);
+    background: var(--bg-deep);
+    padding: 46px 0 22px;
+    margin-top: 40px;
+}
+
+.footer-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 30px;
+    margin-bottom: 30px;
+}
+
+.footer-grid h4 {
+    font-size: 0.95rem;
+    margin-bottom: 14px;
+}
+
+.footer-grid a,
+.footer-grid p {
+    display: block;
+    color: var(--text-2);
+    font-size: 0.86rem;
+    margin-bottom: 9px;
+}
+
+.footer-grid a:hover {
+    color: var(--violet);
+}
+
+.footer-bottom {
+    border-top: 1px solid var(--border);
+    padding-top: 18px;
+    text-align: center;
+    font-size: 0.8rem;
+    color: var(--text-2);
+}
+
+/* ---------- 10. BREADCRUMB ---------- */
+.breadcrumb {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    font-size: 0.84rem;
+    color: var(--text-2);
+    padding: 18px 0;
+}
+
+.breadcrumb a:hover {
+    color: var(--violet);
+}
+
+.breadcrumb .current {
+    color: var(--violet);
+}
+
+/* ---------- 11. GENERIC DARK CARD ---------- */
+.card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 22px;
+}

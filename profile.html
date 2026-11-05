@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<!-- ==========================================================================
+     NOVA - profile.html   ***** FILE GUIDE (MASTER COMMENT) *****
+     --------------------------------------------------------------------------
+     IN ONE SENTENCE: A small account page that greets the signed-in shopper
+     and shows their saved details, how many orders they have and quick links
+     to wishlist / orders / logout.
+
+     HOW IT WORKS
+     auth.js -> setupProfilePage() reads novaCurrentUser and fills the page.
+     Login is required, so a guest is redirected to sign in first. There is no
+     editing form here on purpose - it is a clean summary built entirely from
+     data already stored during registration and checkout.
+
+     SCRIPTS LOADED: storage.js -> common.js -> auth.js.
+     ========================================================================== -->
+<!-- ==========================================================================
+     NOVA - profile.html  (USER PROFILE)
+     Protected page: auth.js redirects guests to the login screen.
+     ========================================================================== -->
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile &ndash; NOVA</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+
+<body>
+
+    <header class="site-header" id="siteHeader"></header>
+
+    <main class="container page-section">
+        <!-- auth.js fills this card with the signed-in user's details -->
+        <div class="card" id="profileBox" style="max-width:720px;margin:0 auto"></div>
+    </main>
+
+    <footer class="site-footer" id="siteFooter"></footer>
+    <div id="toast-area"></div>
+
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+    <script src="js/storage.js"></script>
+    <script src="js/common.js"></script>
+    <script src="js/auth.js"></script>
+    <script>renderFooter();</script>
+</body>
+
+</html>

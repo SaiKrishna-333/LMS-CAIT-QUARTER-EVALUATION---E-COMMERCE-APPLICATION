@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<!-- ==========================================================================
+     NOVA - admin/orders.html   ***** FILE GUIDE (MASTER COMMENT) *****
+     --------------------------------------------------------------------------
+     IN ONE SENTENCE: The order-management page of the console. It is the
+     shell that admin-orders.js fills with every customer order so the owner
+     can inspect each one and move it along the delivery pipeline.
+
+     HOW ADMIN PAGES WORK
+     Standard admin recipe: storage.js, common.js and admin.js load first,
+     renderAdminShell() guards access + draws the chrome, and the page script
+     populates #adminContent.
+
+     SCRIPTS LOADED: storage.js -> common.js -> admin.js -> admin-orders.js.
+     Changing an order's status here writes to novaOrders, which is exactly what
+     makes that order's tracking timeline advance on the customer's own orders
+     page - one shared record, two views.
+     ========================================================================== -->
+<!-- ==========================================================================
+     NOVA - admin/orders.html  (ORDER MANAGEMENT + STATUS UPDATES)
+     ========================================================================== -->
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orders &ndash; NOVA Admin</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/admin.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+</head>
+
+<body class="admin-body">
+
+    <div class="admin-shell" id="adminShell"></div>
+
+    <div id="toast-area"></div>
+
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+    <script src="../js/storage.js"></script>
+    <script src="../js/common.js"></script>
+    <script src="../js/admin.js"></script>
+    <script src="../js/admin-orders.js"></script>
+</body>
+
+</html>

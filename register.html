@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<!-- ==========================================================================
+     NOVA - register.html   ***** FILE GUIDE (MASTER COMMENT) *****
+     --------------------------------------------------------------------------
+     IN ONE SENTENCE: The create-account page. It collects name, email, phone
+     and a password so a new shopper can sign up.
+
+     WHERE THE LOGIC IS
+     This is just the form. js/auth.js -> setupRegisterPage() validates every
+     field (email shape, phone digits, matching passwords, no duplicate email),
+     adds the new account to novaUsers and then signs the shopper straight in.
+     Field-by-field errors appear inline via setFieldError() - no pop-up
+     alerts.
+
+     SCRIPTS LOADED: storage.js -> common.js -> auth.js.
+     New accounts are customers; the admin account already exists in the demo
+     data (see README for the demo credentials).
+     ========================================================================== -->
+<!-- ==========================================================================
+     NOVA - register.html  (CREATE ACCOUNT PAGE)
+     New accounts are saved into the novaUsers list inside Local Storage.
+     ========================================================================== -->
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register &ndash; NOVA</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+
+<body>
+
+    <header class="site-header" id="siteHeader"></header>
+
+    <main class="auth-wrap">
+        <div class="auth-card">
+            <h1>Create account</h1>
+            <p class="auth-sub">Join NOVA for deals, orders and wishlists</p>
+
+            <form id="registerForm" novalidate>
+                <div class="form-group">
+                    <label for="name">Full name</label>
+                    <input class="form-control" type="text" id="name" placeholder="Your name" autocomplete="name">
+                    <div class="field-error" id="nameError"></div>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email address</label>
+                    <input class="form-control" type="email" id="email" placeholder="you@example.com"
+                        autocomplete="email">
+                    <div class="field-error" id="emailError"></div>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone number</label>
+                    <input class="form-control" type="tel" id="phone" placeholder="10-digit mobile number"
+                        autocomplete="tel">
+                    <div class="field-error" id="phoneError"></div>
+                </div>
+                <div class="form-row-2">
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input class="form-control" type="password" id="password" placeholder="min 6 characters">
+                        <div class="field-error" id="passwordError"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="confirm">Confirm password</label>
+                        <input class="form-control" type="password" id="confirm" placeholder="repeat password">
+                        <div class="field-error" id="confirmError"></div>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary"><i data-lucide="user-plus"></i> Register</button>
+            </form>
+
+            <p class="auth-switch">Already have an account? <a href="login.html">Sign in</a></p>
+
+            <div class="demo-box">
+                <b>Note:</b> accounts are stored in your browser's Local Storage for this
+                academic demo. No data is sent anywhere and no real security is provided.
+            </div>
+        </div>
+    </main>
+
+    <div id="toast-area"></div>
+
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+    <script src="js/storage.js"></script>
+    <script src="js/common.js"></script>
+    <script src="js/auth.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<!-- ==========================================================================
+     NOVA - admin/marketing.html   ***** FILE GUIDE (MASTER COMMENT) *****
+     --------------------------------------------------------------------------
+     IN ONE SENTENCE: The promotions page of the console. It is the shell that
+     marketing.js fills with controls to run the flash sale, set the delivery
+     charge and choose which products are shown as "Featured" on the shop.
+
+     HOW ADMIN PAGES WORK
+     Standard admin recipe: storage.js, common.js and admin.js load first,
+     renderAdminShell() guards access + draws the chrome, and the page script
+     populates #adminContent.
+
+     SCRIPTS LOADED: storage.js -> common.js -> admin.js -> marketing.js.
+     Every choice here is written into novaSettings, so toggling the flash sale
+     or changing the delivery fee visibly affects the homepage countdown and
+     the cart totals on the customer side.
+     ========================================================================== -->
+<!-- ==========================================================================
+     NOVA - admin/marketing.html  (FLASH SALE / OFFERS / FEATURED PRODUCTS)
+     ========================================================================== -->
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marketing &ndash; NOVA Admin</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/admin.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+</head>
+
+<body class="admin-body">
+
+    <div class="admin-shell" id="adminShell"></div>
+
+    <div id="toast-area"></div>
+
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+    <script src="../js/storage.js"></script>
+    <script src="../js/common.js"></script>
+    <script src="../js/admin.js"></script>
+    <script src="../js/marketing.js"></script>
+</body>
+
+</html>

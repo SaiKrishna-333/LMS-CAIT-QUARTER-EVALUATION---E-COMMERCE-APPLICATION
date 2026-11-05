@@ -1,0 +1,256 @@
+/* ==========================================================================
+   NOVA - responsive.css   ***** FILE GUIDE (MASTER COMMENT) *****
+   --------------------------------------------------------------------------
+   IN ONE SENTENCE: This file makes NOVA work on every screen size. It holds
+   ONLY media queries that re-arrange (not merely shrink) the layout for
+   tablets and phones, including collapsing the navigation into a hamburger.
+
+   WHY IT IS LOADED LAST
+   Because it comes after style.css, components.css and admin.css, its rules
+   win when the screen is small, letting it safely override grids, hide the
+   desktop nav and stack columns without using !important everywhere.
+
+   WHAT IS INSIDE, SECTION BY SECTION (three breakpoints)
+   1. TABLETS               (max-width: 1024px) - tighten grids, drop the
+                              analytics dashboard to fewer columns
+   2. SMALL TABLETS/PHONES  (max-width: 768px)  - switch the header to the
+                              hamburger menu, stack sidebars under content,
+                              make tables and checkout single-column
+   3. PHONES                (max-width: 480px)  - reduce padding/font sizes,
+                              full-width buttons and cards for thumb-friendly use
+
+   The result: the same HTML adapts from a wide desktop to a narrow phone with
+   no horizontal scrolling and everything still tappable.
+   ========================================================================== */
+
+/* ==========================================================================
+   NOVA - responsive.css  (MOBILE / TABLET ADAPTATION)
+   --------------------------------------------------------------------------
+   WHAT THIS FILE DOES:
+   Media queries that re-arrange (not just shrink) the layout:
+   - < 1024px : tablets  - dashboard columns stack, grids get fewer columns
+   - < 768px  : phones   - hamburger menu, single-column pages
+   Loaded LAST so it can override the other stylesheets.
+   ========================================================================== */
+
+/* ---------- 1. TABLETS (max-width: 1024px) ---------- */
+@media (max-width: 1024px) {
+
+    /* Hero becomes a stacked block: text above, image below */
+    .hero {
+        grid-template-columns: 1fr;
+        padding: 44px 0;
+    }
+
+    .hero-image {
+        max-width: 520px;
+        margin: 0 auto;
+    }
+
+    /* Admin dashboard: three columns collapse to one column */
+    .dash-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .stat-cards {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .benefits {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .category-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .footer-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+/* ---------- 2. SMALL TABLETS / LARGE PHONES (max-width: 768px) ---------- */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 1.6rem;
+    }
+
+    .hero h1 {
+        font-size: 2.1rem;
+    }
+
+    /* Show the hamburger button, hide the normal nav links */
+    .menu-toggle {
+        display: grid;
+    }
+
+    .main-nav {
+        position: fixed;
+        top: 68px;
+        left: 0;
+        right: 0;
+        flex-direction: column;
+        align-items: stretch;
+        background: var(--bg-deep);
+        border-bottom: 1px solid var(--border);
+        padding: 12px 5%;
+        gap: 2px;
+        transform: translateY(-130%);
+        transition: transform 0.28s ease;
+        z-index: 40;
+    }
+
+    .main-nav.open {
+        transform: translateY(0);
+    }
+
+    .main-nav a {
+        padding: 13px 12px;
+        border-radius: 10px;
+    }
+
+    /* Search moves to its own full-width row under the header */
+    .header-inner {
+        flex-wrap: wrap;
+        height: auto;
+        padding: 12px 0;
+        gap: 12px;
+    }
+
+    .header-search {
+        order: 5;
+        max-width: none;
+        width: 100%;
+        margin-left: 0;
+    }
+
+    /* Product details: image and info stack vertically */
+    .pd-grid {
+        grid-template-columns: 1fr !important;
+    }
+
+    /* Checkout steps show numbers only, labels hidden to save space */
+    .step .step-label {
+        display: none;
+    }
+
+    .step+.step::before {
+        width: 30px;
+    }
+
+    .form-row-2 {
+        grid-template-columns: 1fr;
+    }
+
+    .info-grid {
+        grid-template-columns: 1fr;
+    }
+
+    /* Comparison table scrolls sideways instead of squashing */
+    .compare-scroll {
+        overflow-x: auto;
+    }
+
+    .compare-table {
+        min-width: 640px;
+    }
+
+    .admin-shell {
+        padding: 16px;
+        border-radius: 18px;
+    }
+
+    /* Admin pill navigation becomes horizontally scrollable */
+    .admin-nav {
+        order: 3;
+        width: 100%;
+        overflow-x: auto;
+        justify-content: flex-start;
+    }
+
+    .timeline {
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    .timeline::before {
+        top: 0;
+        bottom: 0;
+        left: 14px;
+        right: auto;
+        width: 2px;
+        height: auto;
+    }
+
+    .timeline-step {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        text-align: left;
+    }
+
+    .timeline-step .dot {
+        margin: 0;
+    }
+}
+
+/* ---------- 3. PHONES (max-width: 480px) ---------- */
+@media (max-width: 480px) {
+    .container {
+        width: 94%;
+    }
+
+    .product-grid {
+        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+        gap: 12px;
+    }
+
+    .stat-cards {
+        grid-template-columns: 1fr;
+    }
+
+    .benefits {
+        grid-template-columns: 1fr;
+    }
+
+    .category-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .footer-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .hero h1 {
+        font-size: 1.75rem;
+    }
+
+    .hero-actions .btn {
+        width: 100%;
+    }
+
+    .countdown {
+        flex-wrap: wrap;
+    }
+
+    /* Cart row: image + details + buttons wrap nicely */
+    .cart-row {
+        grid-template-columns: 84px 1fr !important;
+    }
+
+    .cart-row .cart-actions-col {
+        grid-column: 1 / -1;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    #toast-area {
+        left: 14px;
+        right: 14px;
+    }
+
+    .toast {
+        min-width: 0;
+        width: 100%;
+    }
+}

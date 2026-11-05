@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<!-- ==========================================================================
+     NOVA - admin/inventory.html   ***** FILE GUIDE (MASTER COMMENT) *****
+     --------------------------------------------------------------------------
+     IN ONE SENTENCE: The stock-control page of the console. It is the shell
+     that inventory.js fills with a list of products, each with a coloured
+     stock meter and quick controls to raise, lower or set the quantity.
+
+     HOW ADMIN PAGES WORK
+     Standard admin recipe: storage.js, common.js and admin.js load first,
+     renderAdminShell() guards access + draws the chrome, and the page script
+     populates #adminContent.
+
+     SCRIPTS LOADED: storage.js -> common.js -> admin.js -> inventory.js.
+     Stock changes write straight back to novaProducts, which is why an item
+     marked out-of-stock here immediately stops being buyable on the shop.
+     ========================================================================== -->
+<!-- ==========================================================================
+     NOVA - admin/inventory.html  (STOCK MANAGEMENT)
+     Stock edits here are reflected instantly in the customer catalogue,
+     because both read the same novaProducts list.
+     ========================================================================== -->
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventory &ndash; NOVA Admin</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/admin.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+</head>
+
+<body class="admin-body">
+
+    <div class="admin-shell" id="adminShell"></div>
+
+    <div id="toast-area"></div>
+
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+    <script src="../js/storage.js"></script>
+    <script src="../js/common.js"></script>
+    <script src="../js/admin.js"></script>
+    <script src="../js/inventory.js"></script>
+</body>
+
+</html>

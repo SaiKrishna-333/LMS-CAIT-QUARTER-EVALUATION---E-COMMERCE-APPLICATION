@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<!-- ==========================================================================
+     NOVA - login.html   ***** FILE GUIDE (MASTER COMMENT) *****
+     --------------------------------------------------------------------------
+     IN ONE SENTENCE: The sign-in page. It shows an email + password form; the
+     real checking is done by auth.js, which matches the details against the
+     accounts stored in novaUsers and, on success, records novaCurrentUser.
+
+     WHAT IS MARKUP VS WHAT IS CODE
+     This file only lays out the form fields, the "Remember me" and "Forgot
+     password" links, the demo-credential hint and a link to register. Every
+     rule (valid email, correct password, the error messages you see under a
+     box) lives in js/auth.js -> setupLoginPage().
+
+     SCRIPTS LOADED: storage.js -> common.js -> auth.js.
+     After a good login the shopper is sent back to the page they came from
+     (or the homepage), so browsing continues where it left off.
+     ========================================================================== -->
+<!-- ==========================================================================
+     NOVA - login.html  (SIGN IN PAGE)
+     The account details are checked against novaUsers in Local Storage.
+     This is a front-end demonstration only - see the README explanation.
+     ========================================================================== -->
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login &ndash; NOVA</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+
+<body>
+
+    <header class="site-header" id="siteHeader"></header>
+
+    <main class="auth-wrap">
+        <div class="auth-card">
+            <h1>Welcome back</h1>
+            <p class="auth-sub">Sign in to continue shopping with NOVA</p>
+
+            <!-- novalidate: we run our own JavaScript validation -->
+            <form id="loginForm" novalidate>
+                <div class="form-group">
+                    <label for="email">Email address</label>
+                    <input class="form-control" type="email" id="email" placeholder="you@example.com"
+                        autocomplete="email">
+                    <div class="field-error" id="emailError"></div>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input class="form-control" type="password" id="password" placeholder="••••••••"
+                        autocomplete="current-password">
+                    <div class="field-error" id="passwordError"></div>
+                </div>
+                <button type="submit" class="btn btn-primary"><i data-lucide="log-in"></i> Sign In</button>
+            </form>
+
+            <p class="auth-switch">New to NOVA? <a href="register.html">Create an account</a></p>
+
+            <!-- Demo credentials so evaluators can log in instantly.
+               Clicking a row fills the form (a small presentation nicety). -->
+            <div class="demo-box">
+                <b>Demo accounts</b> (click to autofill)<br>
+                <button type="button" onclick="fillDemo('customer@nova.demo','demo123')">Customer &mdash;
+                    customer@nova.demo / demo123</button><br>
+                <button type="button" onclick="fillDemo('admin@nova.demo','admin123')">Admin &mdash; admin@nova.demo /
+                    admin123</button>
+            </div>
+        </div>
+    </main>
+
+    <div id="toast-area"></div>
+
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+    <script src="js/storage.js"></script>
+    <script src="js/common.js"></script>
+    <script src="js/auth.js"></script>
+    <script>
+        // Small helper used by the demo-credential buttons above.
+        function fillDemo(emailValue, passwordValue) {
+            document.getElementById("email").value = emailValue;
+            document.getElementById("password").value = passwordValue;
+        }
+    </script>
+</body>
+
+</html>

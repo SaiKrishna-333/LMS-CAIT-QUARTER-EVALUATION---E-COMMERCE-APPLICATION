@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<!-- ==========================================================================
+     NOVA - cart.html   ***** FILE GUIDE (MASTER COMMENT) *****
+     --------------------------------------------------------------------------
+     IN ONE SENTENCE: The shopping cart. It lists the items ready to buy, lets
+     the shopper change quantities or remove them, shows the running bill and
+     offers a button to continue to checkout.
+
+     MARKUP VS LOGIC
+     This page reserves two areas: a list of cart lines and an order-summary
+     box. cart.js reads novaCart, draws each row and calls cartTotals() (from
+     common.js) for the subtotal, discount, delivery and total, so the numbers
+     always match the rules used across the app.
+
+     SCRIPTS LOADED: storage.js -> common.js -> cart.js.
+     If the cart is empty it shows a nudge to keep shopping instead of a blank
+     page.
+     ========================================================================== -->
+<!-- ==========================================================================
+     NOVA - cart.html  (SHOPPING CART)
+     All totals are recalculated from Local Storage every time the page
+     renders or a quantity changes - nothing is hard-coded.
+     ========================================================================== -->
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart &ndash; NOVA</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <style>
+        /* Page layout: cart rows on the left, sticky bill panel on the right */
+        .cart-layout {
+            display: grid;
+            grid-template-columns: 1fr 340px;
+            gap: 26px;
+            align-items: start;
+        }
+
+        .cart-row {
+            display: grid;
+            grid-template-columns: 96px 1fr auto auto;
+            gap: 18px;
+            align-items: center;
+            padding: 18px;
+        }
+
+        .cart-row img {
+            width: 96px;
+            height: 96px;
+            object-fit: contain;
+            background: var(--panel);
+            border-radius: 12px;
+            padding: 6px;
+        }
+
+        .cart-line-total {
+            font-size: 1.05rem;
+            font-weight: 700;
+            text-align: right;
+        }
+
+        .bill-panel {
+            position: sticky;
+            top: 90px;
+        }
+
+        .bill-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            padding: 8px 0;
+            color: var(--text-2);
+        }
+
+        .bill-row.total {
+            border-top: 1px solid var(--border);
+            margin-top: 8px;
+            padding-top: 14px;
+            color: var(--text);
+            font-size: 1.1rem;
+            font-weight: 700;
+        }
+
+        .bill-row .save {
+            color: var(--green);
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="site-header" id="siteHeader"></header>
+
+    <main class="container page-section">
+        <div class="breadcrumb">
+            <a href="index.html">Home</a> <span>/</span> <span class="current">Shopping Cart</span>
+        </div>
+
+        <div class="section-title">
+            <div>
+                <h1>Shopping Cart</h1>
+                <div class="accent-bar"></div>
+            </div>
+            <p id="cartCount" style="font-size:0.85rem"></p>
+        </div>
+
+        <div id="cartEmpty" class="empty-state" hidden>
+            <div class="empty-icon"><i data-lucide="shopping-cart"></i></div>
+            <h3>Your cart is empty</h3>
+            <p>Add something you love and it will wait for you here &mdash; even after a refresh.</p>
+            <a href="products.html" class="btn btn-primary">Continue Shopping</a>
+        </div>
+
+        <div class="cart-layout" id="cartLayout" hidden>
+            <!-- cart rows are injected here by cart.js -->
+            <div id="cartRows" style="display:flex;flex-direction:column;gap:14px"></div>
+
+            <!-- order bill -->
+            <aside class="card bill-panel">
+                <h3 style="margin-bottom:12px">Order Summary</h3>
+                <div class="bill-row"><span>Subtotal</span><span id="billSubtotal"></span></div>
+                <div class="bill-row"><span>Discount saved</span><span class="save" id="billDiscount"></span></div>
+                <div class="bill-row"><span>Delivery</span><span id="billDelivery"></span></div>
+                <div class="bill-row total"><span>Total payable</span><span id="billTotal"></span></div>
+                <p id="freeShipHint" style="font-size:0.78rem;margin:10px 0 16px"></p>
+                <a href="checkout.html" class="btn btn-primary" id="checkoutBtn" style="width:100%">
+                    <i data-lucide="lock"></i> Proceed to Checkout</a>
+                <a href="products.html" class="btn btn-outline" style="width:100%;margin-top:10px">Continue Shopping</a>
+            </aside>
+        </div>
+    </main>
+
+    <footer class="site-footer" id="siteFooter"></footer>
+    <div id="toast-area"></div>
+
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+    <script src="js/storage.js"></script>
+    <script src="js/common.js"></script>
+    <script src="js/cart.js"></script>
+</body>
+
+</html>

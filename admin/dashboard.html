@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<!-- ==========================================================================
+     NOVA - admin/dashboard.html   ***** FILE GUIDE (MASTER COMMENT) *****
+     --------------------------------------------------------------------------
+     IN ONE SENTENCE: The admin analytics home - the landing page of the
+     console - showing sales, orders, customers, charts, notifications and
+     low-stock alerts in one dark, premium dashboard.
+
+     HOW ADMIN PAGES WORK
+     Every page in this /admin folder follows the same recipe: load storage.js,
+     common.js and admin.js, then a page script. admin.js -> renderAdminShell()
+     checks the visitor really is an admin (requireAdmin) and paints the shared
+     sidebar + top bar; the page script then fills the #adminContent area with
+     its own widgets. This file just provides that empty content shell.
+
+     SCRIPTS LOADED: storage.js -> common.js -> admin.js -> dashboard.js.
+     dashboard.js computes the live numbers and draws every chart with plain
+     CSS/SVG (no chart library). A demo admin login is provided (see README).
+     ========================================================================== -->
+<!-- ==========================================================================
+     NOVA - admin/dashboard.html  (ANALYTICS OVERVIEW)
+     Visual design follows reference image 1: dark rounded shell, charcoal
+     panels, purple ambient glow, gradient charts, notifications, activities.
+     All numbers are computed live from Local Storage.
+     ========================================================================== -->
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard &ndash; NOVA</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/admin.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+</head>
+
+<body class="admin-body">
+
+    <div class="admin-shell" id="adminShell">
+        <!-- admin.js injects the top bar, then dashboard.js fills #adminContent -->
+    </div>
+
+    <div id="toast-area"></div>
+
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+    <script src="../js/storage.js"></script>
+    <script src="../js/common.js"></script>
+    <script src="../js/admin.js"></script>
+    <script src="../js/dashboard.js"></script>
+</body>
+
+</html>

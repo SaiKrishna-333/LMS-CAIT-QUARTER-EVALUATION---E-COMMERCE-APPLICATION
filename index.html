@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<!-- ==========================================================================
+     NOVA - index.html   ***** FILE GUIDE (MASTER COMMENT) *****
+     --------------------------------------------------------------------------
+     IN ONE SENTENCE: This is the storefront HOME PAGE - the first thing a
+     shopper sees. The markup here is mostly empty "wrapper" sections that
+     JavaScript fills in with real content when the page loads.
+
+     HOW A NOVA PAGE IS PUT TOGETHER (same pattern everywhere)
+     - Stylesheets, in order: style.css (base) -> components.css (widgets) ->
+       responsive.css (mobile). See their own guide comments for details.
+     - Scripts, in order at the bottom: storage.js (the data layer) ->
+       common.js (shared header/footer/cards) -> index.js (this page's logic).
+     - common.js paints the header + footer, so they are NOT written by hand
+       here; index.js drops product cards into the section shells below.
+
+     THE SECTIONS ON THIS PAGE (top to bottom)
+     1. Hero banner          - headline + Shop Now call to action
+     2. Benefits strip       - free delivery / easy returns / support icons
+     3. Category tiles       - the five shopping categories
+     4. Flash Deals          - limited-time offer + live countdown
+     5. Best Sellers / New Arrivals / Recommended / Recently Viewed rows
+     Each is just an empty container that index.js populates from storage.js.
+
+     TRY IT: "Reset demo data" and the categories/products come back fresh;
+     nothing here is hard-coded, so the page always reflects current storage.
+     ========================================================================== -->
+<!-- ==========================================================================
+     NOVA - index.html (HOMEPAGE)
+     The header and footer HTML are injected by common.js so every page
+     shares exactly the same navigation. Page content is filled by index.js.
+     ========================================================================== -->
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NOVA &ndash; Next-Generation E-Commerce Experience</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+
+<body>
+
+    <!-- Shared navigation bar (rendered by common.js) -->
+    <header class="site-header" id="siteHeader"></header>
+
+    <main>
+        <!-- HERO -->
+        <section class="container hero">
+            <div>
+                <span class="hero-badge">Quarterly Evaluation &middot; Nov 2026</span>
+                <h1>Premium tech,<br><span class="highlight">priced for real life.</span></h1>
+                <p>Discover curated electronics, fashion and lifestyle picks. Compare before you buy, check out in
+                    seconds and track every order &mdash; all in one immersive dark store.</p>
+                <div class="hero-actions">
+                    <a href="products.html" class="btn btn-primary"><i data-lucide="shopping-bag"></i> Shop Now</a>
+                    <a href="products.html?sort=rating" class="btn btn-outline"><i data-lucide="sparkles"></i> Explore
+                        Collection</a>
+                </div>
+            </div>
+            <!-- Hero product image is drawn by NOVA's own SVG image factory -->
+            <div class="hero-image"><img id="heroImage" alt="Featured product"></div>
+        </section>
+
+        <!-- FEATURED CATEGORIES -->
+        <section class="container page-section">
+            <div class="section-title">
+                <div>
+                    <h2>Featured Categories</h2>
+                    <div class="accent-bar"></div>
+                </div>
+                <a href="products.html" class="btn btn-outline btn-sm">View All</a>
+            </div>
+            <div class="category-grid" id="categoryGrid"></div>
+        </section>
+
+        <!-- FLASH DEALS -->
+        <section class="container page-section" id="flashSection">
+            <div class="flash-panel">
+                <div class="section-title">
+                    <div>
+                        <h2><i data-lucide="zap" style="color:var(--violet)"></i> NOVA Flash Deals</h2>
+                        <div class="accent-bar"></div>
+                    </div>
+                    <div class="countdown" id="flashCountdown"></div>
+                </div>
+                <p id="flashNote" style="margin-bottom:18px">Extra limited-stock discounts &mdash; they vanish when the
+                    timer ends.</p>
+                <div class="product-grid" id="flashGrid"></div>
+            </div>
+        </section>
+
+        <!-- BEST SELLERS -->
+        <section class="container page-section">
+            <div class="section-title">
+                <div>
+                    <h2>Best Sellers</h2>
+                    <div class="accent-bar"></div>
+                </div>
+                <a href="products.html?sort=rating" class="btn btn-outline btn-sm">More</a>
+            </div>
+            <div class="product-grid" id="bestGrid"></div>
+        </section>
+
+        <!-- NEW ARRIVALS -->
+        <section class="container page-section">
+            <div class="section-title">
+                <div>
+                    <h2>New Arrivals</h2>
+                    <div class="accent-bar"></div>
+                </div>
+                <a href="products.html?sort=new" class="btn btn-outline btn-sm">More</a>
+            </div>
+            <div class="product-grid" id="newGrid"></div>
+        </section>
+
+        <!-- RECOMMENDED (based on recently viewed) -->
+        <section class="container page-section" id="recSection" hidden>
+            <div class="section-title">
+                <div>
+                    <h2>Recommended For You</h2>
+                    <div class="accent-bar"></div>
+                </div>
+            </div>
+            <div class="product-grid" id="recGrid"></div>
+        </section>
+
+        <!-- RECENTLY VIEWED -->
+        <section class="container page-section" id="recentSection" hidden>
+            <div class="section-title">
+                <div>
+                    <h2>Recently Viewed</h2>
+                    <div class="accent-bar"></div>
+                </div>
+            </div>
+            <div class="product-grid" id="recentGrid"></div>
+        </section>
+
+        <!-- CUSTOMER BENEFITS -->
+        <section class="container page-section">
+            <div class="benefits">
+                <div class="benefit">
+                    <div class="b-icon"><i data-lucide="shield-check"></i></div>
+                    <h4>2-Year Warranty</h4>
+                    <p>On all electronics, no questions asked.</p>
+                </div>
+                <div class="benefit">
+                    <div class="b-icon"><i data-lucide="rotate-ccw"></i></div>
+                    <h4>30-Day Returns</h4>
+                    <p>Changed your mind? Send it back free.</p>
+                </div>
+                <div class="benefit">
+                    <div class="b-icon"><i data-lucide="truck"></i></div>
+                    <h4>Free Shipping</h4>
+                    <p>On orders above the featured minimum.</p>
+                </div>
+                <div class="benefit">
+                    <div class="b-icon"><i data-lucide="headphones"></i></div>
+                    <h4>24×7 Support</h4>
+                    <p>Real humans, around the clock.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Shared footer (rendered by common.js) -->
+    <footer class="site-footer" id="siteFooter"></footer>
+
+    <!-- Toast message area -->
+    <div id="toast-area"></div>
+
+    <!-- Lucide icons (CDN). The app still works if this fails to load. -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+    <!-- Script ORDER matters: storage first, shared UI second, page last -->
+    <script src="js/storage.js"></script>
+    <script src="js/common.js"></script>
+    <script src="js/index.js"></script>
+</body>
+
+</html>

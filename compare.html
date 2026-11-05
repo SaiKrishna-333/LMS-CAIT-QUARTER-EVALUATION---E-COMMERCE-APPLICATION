@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<!-- ==========================================================================
+     NOVA - compare.html   ***** FILE GUIDE (MASTER COMMENT) *****
+     --------------------------------------------------------------------------
+     IN ONE SENTENCE: Compare Studio - a page that lays up to THREE chosen
+     products side by side so the shopper can judge price, rating, stock and
+     specs at a glance.
+
+     WHERE THE ITEMS COME FROM
+     Products are added to the comparison from any card (the compare button
+     calls addToCompare() in common.js), which stores them in novaCompare.
+     This page reads that list and compare.js builds the table; if fewer than
+     three (or none) are picked it shows a helpful prompt instead.
+
+     SCRIPTS LOADED: storage.js -> common.js -> compare.js.
+     ========================================================================== -->
+<!-- ==========================================================================
+     NOVA - compare.html  (NOVA COMPARE STUDIO)
+     Up to three products side by side. The tray lives in novaCompare.
+     ========================================================================== -->
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compare Studio &ndash; NOVA</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+
+<body>
+
+    <header class="site-header" id="siteHeader"></header>
+
+    <main class="container page-section">
+        <div class="breadcrumb">
+            <a href="index.html">Home</a> <span>/</span> <span class="current">Compare Studio</span>
+        </div>
+
+        <div class="section-title">
+            <div>
+                <h1>NOVA Compare Studio</h1>
+                <div class="accent-bar"></div>
+            </div>
+            <a href="products.html" class="btn btn-outline btn-sm"><i data-lucide="plus"></i> Add products</a>
+        </div>
+        <p style="margin-bottom:22px">Pick up to three products from any listing (the <b style="color:var(--violet)">⇄
+                icon on each card</b>) and compare them side by side.</p>
+
+        <!-- Empty state and result table are swapped by compare.js -->
+        <div id="emptyTray" class="empty-state" hidden>
+            <div class="empty-icon"><i data-lucide="scale"></i></div>
+            <h3>Nothing to compare yet</h3>
+            <p>Your tray is empty. Browse the shop and tap the compare icon on products you are deciding between.</p>
+            <a href="products.html" class="btn btn-primary">Start Browsing</a>
+        </div>
+
+        <div class="compare-scroll">
+            <table class="compare-table" id="compareTable" hidden></table>
+        </div>
+    </main>
+
+    <footer class="site-footer" id="siteFooter"></footer>
+    <div id="toast-area"></div>
+
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+    <script src="js/storage.js"></script>
+    <script src="js/common.js"></script>
+    <script src="js/compare.js"></script>
+</body>
+
+</html>

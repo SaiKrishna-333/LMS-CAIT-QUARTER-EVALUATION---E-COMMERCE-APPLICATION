@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<!-- ==========================================================================
+     NOVA - admin/reports.html   ***** FILE GUIDE (MASTER COMMENT) *****
+     --------------------------------------------------------------------------
+     IN ONE SENTENCE: The reports page of the console. It is the shell that
+     reports.js fills with plain business summaries - total sales, average
+     order value, best sellers and a category breakdown - read from the stored
+     orders and products.
+
+     HOW ADMIN PAGES WORK
+     Standard admin recipe: storage.js, common.js and admin.js load first,
+     renderAdminShell() guards access + draws the chrome, and the page script
+     populates #adminContent.
+
+     SCRIPTS LOADED: storage.js -> common.js -> admin.js -> reports.js.
+     This page only reads data; it changes nothing, so it is safe to open at
+     any time to review how the store is performing.
+     ========================================================================== -->
+<!-- ==========================================================================
+     NOVA - admin/reports.html  (SALES REPORTS)
+     ========================================================================== -->
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reports &ndash; NOVA Admin</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/admin.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+</head>
+
+<body class="admin-body">
+
+    <div class="admin-shell" id="adminShell"></div>
+
+    <div id="toast-area"></div>
+
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+    <script src="../js/storage.js"></script>
+    <script src="../js/common.js"></script>
+    <script src="../js/admin.js"></script>
+    <script src="../js/reports.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<!-- ==========================================================================
+     NOVA - orders.html   ***** FILE GUIDE (MASTER COMMENT) *****
+     --------------------------------------------------------------------------
+     IN ONE SENTENCE: The signed-in shopper's order history. It lists the
+     customer's past orders and lets each one open a 5-stage tracking timeline
+     (Placed > Confirmed > Packed > Shipped > Delivered).
+
+     HOW IT WORKS
+     orders.js reads novaOrders, keeps only the orders that belong to the
+     current user, and draws a card per order. Clicking "Track" reveals the
+     progress bar for that order's status. Login is enforced, and an empty
+     state invites the shopper to make their first purchase.
+
+     SCRIPTS LOADED: storage.js -> common.js -> orders.js.
+     The status shown here changes on its own when the admin updates the order
+     in the console, because both screens read the same stored record.
+     ========================================================================== -->
+<!-- ==========================================================================
+     NOVA - orders.html  (CUSTOMER ORDER HISTORY + TRACKING)
+     ========================================================================== -->
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Orders &ndash; NOVA</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+
+<body>
+
+    <header class="site-header" id="siteHeader"></header>
+
+    <main class="container page-section">
+        <div class="breadcrumb">
+            <a href="index.html">Home</a> <span>/</span> <span class="current">My Orders</span>
+        </div>
+
+        <div class="section-title">
+            <div>
+                <h1>My Orders</h1>
+                <div class="accent-bar"></div>
+            </div>
+            <p id="orderCount" style="font-size:0.85rem"></p>
+        </div>
+
+        <div id="ordersEmpty" class="empty-state" hidden>
+            <div class="empty-icon"><i data-lucide="package"></i></div>
+            <h3>No orders yet</h3>
+            <p>When you complete a checkout, the order appears here with live tracking.</p>
+            <a href="products.html" class="btn btn-primary">Start Shopping</a>
+        </div>
+
+        <div id="ordersList"></div>
+    </main>
+
+    <footer class="site-footer" id="siteFooter"></footer>
+    <div id="toast-area"></div>
+
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+    <script src="js/storage.js"></script>
+    <script src="js/common.js"></script>
+    <script src="js/orders.js"></script>
+</body>
+
+</html>

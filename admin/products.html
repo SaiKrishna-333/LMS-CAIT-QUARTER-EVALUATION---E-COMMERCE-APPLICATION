@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<!-- ==========================================================================
+     NOVA - admin/products.html   ***** FILE GUIDE (MASTER COMMENT) *****
+     --------------------------------------------------------------------------
+     IN ONE SENTENCE: The product-management page of the console. It is the
+     shell that admin-products.js fills with a table of every product and an
+     add/edit pop-up form, so the shop owner can create, change, delete or
+     reset catalogue items.
+
+     HOW ADMIN PAGES WORK
+     Like all admin pages it loads storage.js, common.js and admin.js; the
+     renderAdminShell() call guards access and draws the sidebar/top bar, and
+     the page script fills #adminContent. This HTML also contains the modal
+     dialog markup (the blank product form) that openAddForm/openEditForm show
+     and hide.
+
+     SCRIPTS LOADED: storage.js -> common.js -> admin.js -> admin-products.js.
+     Any product saved here writes to novaProducts, so it instantly appears for
+     customers in the shop.
+     ========================================================================== -->
+<!-- ==========================================================================
+     NOVA - admin/products.html  (PRODUCT MANAGEMENT: ADD / EDIT / DELETE)
+     ========================================================================== -->
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products &ndash; NOVA Admin</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/admin.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+</head>
+
+<body class="admin-body">
+
+    <div class="admin-shell" id="adminShell"></div>
+
+    <!-- Add / Edit popup. The same form serves both actions: a hidden
+         field remembers which product is being edited. -->
+    <div class="modal-backdrop" id="productModal">
+        <div class="modal">
+            <div class="modal-head">
+                <h3 id="modalTitle">Add Product</h3>
+                <button class="modal-close" onclick="closeModal('productModal')">×</button>
+            </div>
+            <form id="productForm" novalidate>
+                <input type="hidden" id="fId">
+                <div class="form-group">
+                    <label for="fName">Product name</label>
+                    <input class="form-control" id="fName" type="text">
+                    <div class="field-error" id="fNameError"></div>
+                </div>
+                <div class="form-row-2">
+                    <div class="form-group">
+                        <label for="fCategory">Category</label>
+                        <select class="form-control" id="fCategory"></select>
+                    </div>
+                    <div class="form-group">
+                        <label for="fShape">Image style</label>
+                        <select class="form-control" id="fShape"></select>
+                    </div>
+                </div>
+                <div class="form-row-2">
+                    <div class="form-group">
+                        <label for="fPrice">Selling price (₹)</label>
+                        <input class="form-control" id="fPrice" type="number" min="0.01" step="0.01">
+                        <div class="field-error" id="fPriceError"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="fOriginal">Original price (₹)</label>
+                        <input class="form-control" id="fOriginal" type="number" min="0" step="0.01">
+                        <div class="field-error" id="fOriginalError"></div>
+                    </div>
+                </div>
+                <div class="form-row-2">
+                    <div class="form-group">
+                        <label for="fStock">Stock</label>
+                        <input class="form-control" id="fStock" type="number" min="0">
+                        <div class="field-error" id="fStockError"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="fHue">Image tint (250-290 = purple family)</label>
+                        <input class="form-control" id="fHue" type="number" min="250" max="290" value="270">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="fDesc">Description</label>
+                    <textarea class="form-control" id="fDesc" rows="3"></textarea>
+                    <div class="field-error" id="fDescError"></div>
+                </div>
+                <div style="display:flex;gap:18px;margin-bottom:16px;flex-wrap:wrap">
+                    <label class="filter-option"><input type="checkbox" id="fFeatured"> Featured (Best Seller)</label>
+                    <label class="filter-option"><input type="checkbox" id="fNew"> New arrival</label>
+                </div>
+                <button type="submit" class="btn btn-primary" id="saveBtn">Save Product</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="toast-area"></div>
+
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+    <script src="../js/storage.js"></script>
+    <script src="../js/common.js"></script>
+    <script src="../js/admin.js"></script>
+    <script src="../js/admin-products.js"></script>
+</body>
+
+</html>
